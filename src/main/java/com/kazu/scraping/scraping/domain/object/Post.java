@@ -7,6 +7,7 @@ import lombok.Setter;
 @Setter
 public class Post {
     long postNum;
+    String threadTitle;
     String userName;
     String date;
     String userId;

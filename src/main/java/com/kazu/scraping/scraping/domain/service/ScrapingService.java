@@ -10,7 +10,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
@@ -19,9 +18,8 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class ScrapingService {
 
-    public List<Post> scraping() {
+    public List<Post> scraping(String url) {
         List<Post> postList = new ArrayList<>();
-        String url = "http://asahi.5ch.net/test/read.cgi/newsplus/1615378709";
         Document doc;
         try {
             doc = Jsoup.connect(url).get();
@@ -33,13 +31,13 @@ public class ScrapingService {
 
         for(Element e : postElements){
             Post post = new Post();
+            post.setThreadTitle(doc.select(".title").text());
             post.setPostNum(Long.parseLong(e.select(".meta .number").text()));
             post.setDate(e.select(".meta .date").text());
             post.setUserId(e.select(".meta .uid").text());
             post.setUserName(e.select(".meta .name").text());
             post.setMessage(e.select(".message .escaped").text());
             postList.add(post);
-            System.out.println(post.getUserId());
         }
         return postList;
     }
