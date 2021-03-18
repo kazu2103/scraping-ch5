@@ -5,32 +5,15 @@ window.onload = function() {
     $('#datagrid').w2grid({
         name: 'searchResult',
         header: 'Search Result',
+        multiSearch: true,
         show: { 
             lineNumbers: true, 
             toolbar: true,
             footer: true
         },
-        toolbar: {
-            items: [
-                { type: 'break' },
-                { type: 'text',   id: 'toggleThreadTitle', text: 'show/hide'},
-                { type: 'button', id: 'toggleThreadTitle', text: 'Title'},
-                { type: 'button', id: 'togglePostNum', text: 'num'},
-                { type: 'button', id: 'toggleTitle', text: 'UserID'},
-                { type: 'button', id: 'toggledate', text: 'Date'},
-                { type: 'button', id: 'toggleuserId', text: 'UserID'},
-                { type: 'button', id: 'toggleuserName', text: 'UserName'},
-                { type: 'button', id: 'togglemessage', text: 'Message'},
-                { type: 'button', id: 'togglebackLinks', text: 'Back Link'},
-            ],
-            onClick: function (target, data) {
-                console.log(target);
-            }
-        },
-        multiSearch: true,
         columns: [
             { field: 'threadTitle', text: 'Title'     , size: '10%', sortable: true},
-            { field: 'postNum'    , text: 'num'       , size: '3%' , sortable: true},
+            { field: 'postNum'    , text: 'Post'      , size: '3%' , sortable: true},
             { field: 'userId'     , text: 'UserID'    , size: '7%' , sortable: true},
             { field: 'date'       , text: 'Date'      , size: '13%', sortable: true},
             { field: 'userName'   , text: 'UserName'  , size: '10%', sortable: true},
@@ -38,6 +21,23 @@ window.onload = function() {
             { field: 'backLinks'  , text: 'Back Link' , size: '10%', sortable: true},
             { field: 'threadNum'  , text: 'tnum'      , size: '0%'},
         ],
+        toolbar: {
+            items: [
+                { type: 'break' },
+                { type: 'check', id: 'threadTitle', text: 'Title'},
+                { type: 'check', id: 'postNum'    , text: 'Post'},
+                { type: 'check', id: 'userId'     , text: 'UserID'},
+                { type: 'check', id: 'date'       , text: 'Date'},
+                { type: 'check', id: 'userName'   , text: 'UserName'},
+                { type: 'check', id: 'message'    , text: 'Message'},
+                { type: 'check', id: 'backLinks'  , text: 'Back Link'},
+            ],
+            onClick: function (target, data) {
+                console.log()
+                w2ui['searchResult'].toggleColumn(target);
+            }
+        },
+
     });
     w2ui['searchResult'].hideColumn('threadNum');
     // form
